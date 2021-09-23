@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Standardizes currency to USD values so that we can better compare results
 def format_currency(dataset):
@@ -36,8 +38,18 @@ wage_average_per_country = wage_and_happiness_by_country["Value"].mean()
 happiness_average_per_country = wage_and_happiness_by_country["Happiness score"].mean()
 
 
-print(f"Countries with largest average wages: {wage_average_per_country.nlargest(10)}")
-print(f"Countries with highest average happiness scores: {happiness_average_per_country.nlargest(10)}")
+#print(f"Countries with largest average wages: {wage_average_per_country.nlargest(10)}")
+#print(f"Countries with highest average happiness scores: {happiness_average_per_country.nlargest(10)}")
 
-print(f"Countries with largest average wages: {wage_average_per_country.nsmallest(10)}")
-print(f"Countries with highest average happiness scores: {happiness_average_per_country.nsmallest(10)}")
+#print(f"Countries with largest average wages: {wage_average_per_country.nsmallest(10)}")
+#print(f"Countries with highest average happiness scores: {happiness_average_per_country.nsmallest(10)}")
+
+fig = sns.scatterplot(x="Value", y="Happiness score", hue="Happiness score", size="Happiness score", sizes=(20, 180), data=wage_and_happiness)
+
+plt.title("Annual Salary and Happiness")
+plt.xlabel("Annual Salary of Full-Time Workers")
+plt.ylabel("Happiness Scores of Citizens")
+
+fig.set_facecolor("#E5E5E5")
+
+plt.savefig("salary_and_happiness.png")
